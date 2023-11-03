@@ -13,12 +13,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AboutComponent } from './about/about.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
-import { HomeModule } from './modules/home/home.module';
+import { RegistryService } from './services/registry.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AboutComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +32,9 @@ import { HomeModule } from './modules/home/home.module';
     MatProgressSpinnerModule,
     CoreModule
   ],
-  providers: [],
+  providers: [
+    RegistryService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,8 @@ import { HomeCardComponent } from './home-card/home-card.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { CursoModule } from '../curso/curso.module';
+import { RegistryModule } from '../registry/registry.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     MatTabsModule,
     MatCardModule, 
-    MatButtonModule
+    MatButtonModule,
+    CursoModule,
+    RegistryModule
   ],
   exports: [HomeCardComponent]
 })

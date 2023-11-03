@@ -12,6 +12,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {NgIf, NgFor} from '@angular/common';
 import { HomeModule } from 'src/app/modules/home/home.module';
+import { CursoModule } from 'src/app/modules/curso/curso.module';
 
 @Component({
   selector: 'app-navbar',
@@ -28,7 +29,8 @@ import { HomeModule } from 'src/app/modules/home/home.module';
       MatListModule,
       MatCheckboxModule,
       NgFor,
-      HomeModule
+      HomeModule,
+      CursoModule
     ]
 })
 export class NavbarComponent {
