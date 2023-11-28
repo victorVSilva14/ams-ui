@@ -37,14 +37,15 @@ export class RegistryFormComponent implements OnInit {
   }
 
   private realDateTime() {
-    const time = document.getElementById("time") as HTMLInputElement;
-
-    if(time){
-      let dateString = new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"});
-      let formattedString = moment(dateString).format('HH:mm:ss');
+    const time = document.getElementById("time");
+  
+    if (time) {
+      let dateString = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+      let formattedString = moment(dateString, 'DD/MM/YYYY HH:mm:ss').format('HH:mm:ss');
       time.innerHTML = formattedString;
     }
   }
+  
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
