@@ -5,21 +5,56 @@
     </mat-toolbar>
 
     <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav #snav [mode]="'side'" opened [fixedInViewport]="mobileQuery.matches"
-            fixedTopGap="56">
+        <mat-sidenav #snav [mode]="'side'" opened [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+            <!-- Lista com ícones -->
             <mat-nav-list>
-                <a mat-list-item routerLink="/home">Home</a>
-                <a mat-list-item routerLink=".">Perfil</a>
-                <a mat-list-item routerLink=".">Sobre nós</a>
-                <a mat-list-item routerLink=".">Serviços</a>
-                <a mat-list-item routerLink="." position="end">Suporte</a>
-                <a mat-list-item routerLink="." position="end">Sair</a>
+                <a mat-list-item routerLink="/home">
+                    <mat-icon>home</mat-icon>
+                    <span>Home</span>
+                </a>
+                <a mat-list-item routerLink=".">
+                    <mat-icon>person</mat-icon>
+                    <span>Perfil</span>
+                </a>
+                <a mat-list-item class="mb-0" (click)="toggleFrequency()">
+                    <mat-icon>schedule</mat-icon>
+                    <span>Frequência</span>
+                </a>
+                <mat-nav-list *ngIf="showFrequency" class="mt-0 ml-3">
+                    <a mat-list-item routerLink="/add-registry">
+                        <mat-icon>alarm</mat-icon> 
+                        <span>Registrar Ponto</span>
+                    </a>
+                    <a mat-list-item routerLink=".">
+                        <mat-icon>timeline</mat-icon>
+                        <span>Verificar Registros</span>
+                    </a>
+                </mat-nav-list>
+                <a mat-list-item routerLink=".">
+                    <mat-icon>info</mat-icon>
+                    <span>Sobre nós</span>
+                </a>
+                <a mat-list-item routerLink=".">
+                    <mat-icon>build</mat-icon>
+                    <span>Serviços</span>
+                </a>
+                <a mat-list-item routerLink="." position="end">
+                    <mat-icon>help</mat-icon>
+                    <span>Suporte</span>
+                </a>
+                <!-- Botão "Sair" separado -->
+                <div class="sair-button">
+                    <a mat-list-item routerLink="." position="end">
+                        <mat-icon>exit_to_app</mat-icon>
+                        <span>Sair</span>
+                    </a>
+                </div>
             </mat-nav-list>
         </mat-sidenav>
-    
+
         <mat-sidenav-content>
             <app-home-card></app-home-card>
-            <!-- <p *ngFor="let content of fillerContent">{{content}}</p> -->
+            <!-- Seu conteúdo -->
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>

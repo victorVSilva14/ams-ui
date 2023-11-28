@@ -7,6 +7,7 @@ export class Discipline {
     finalDateTime?: Date;
     dayOfWeek?: string;
     classroom?: string;
+    image?: string;
     teacher?: Teacher;
   
     constructor(init?: Partial<Discipline>) {

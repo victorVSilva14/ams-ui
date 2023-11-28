@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DisciplineFormComponent } from '../../discipline/discipline-form/discipline-form.component';
 
 @Component({
   selector: 'app-home-card',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeCardComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog
+  ) { }
 
   categoria = [
     { id: 1, name: 'Graduação' }
@@ -16,4 +20,13 @@ export class HomeCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openDialogDiscipline() {
+    const dialogRef = this.dialog.open(DisciplineFormComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Alguma ação após fechar o modal, se necessário
+    });
+  }
 }

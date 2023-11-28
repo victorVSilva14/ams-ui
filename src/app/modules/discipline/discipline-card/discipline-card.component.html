@@ -1,0 +1,35 @@
+<div *ngIf="screenSize === 'xl'">
+  <mat-grid-list [cols]="cols" rowHeight="270px" gutterSize="10px">
+    <mat-grid-tile *ngFor="let item of disciplines">
+      <mat-card (click)="openDialogDisciplineForm(item.id)">
+        <img mat-card-image [src]="item.image ? item.image : defaultImage" alt="Imagem" />
+        <mat-card-content>
+          {{ item.name }}
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<div *ngIf="screenSize === 'lg' || screenSize === 'md'">
+  <mat-grid-list [cols]="cols" rowHeight="280px" gutterSize="10px">
+    <mat-grid-tile *ngFor="let item of disciplines">
+      <mat-card (click)="openDialogDisciplineForm(item.id)">
+        <img mat-card-image src="{{ item.image ? item.image : defaultImage }}" alt="Imagem" />
+        <mat-card-content>
+          {{ item.name }}
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</div>
+
+<div *ngIf="screenSize === 'sm'">
+  <mat-card (click)="openDialogDisciplineForm(item.id)" *ngFor="let item of disciplines">
+    <img mat-card-image src="{{ item.image ? item.image : defaultImage }}" alt="Imagem" />
+    <mat-card-content>
+      {{ item.name }}
+    </mat-card-content>
+  </mat-card>
+</div>

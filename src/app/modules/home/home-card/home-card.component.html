@@ -1,15 +1,16 @@
-<div class="div-centralizada">
-    <mat-card class="container-fluid mat-card-center">
+<div>
+    <mat-card>
         <mat-tab-group>
-            <mat-tab label="Cursos">
-                <app-curso-card></app-curso-card>
-            </mat-tab>
-            <mat-tab label="Registrar ponto">
-                <app-registry-form></app-registry-form>
-            </mat-tab>
-            
-            <!-- <mat-tab label="Second"> Content 2 </mat-tab>
-            <mat-tab label="Third"> Content 3 </mat-tab> -->
+        <mat-tab label="Disciplinas">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="mt-3 mb-0 ml-3">Disciplinas</h1>
+                <button mat-raised-button color="primary" class="mt-3 mb-2 mr-2" (click)="openDialogDiscipline()">Adicionar Disciplina</button>
+            </div>
+            <app-discipline-card></app-discipline-card>
+        </mat-tab>
+        <mat-tab label="Registrar ponto">
+            <app-registry-form></app-registry-form>
+        </mat-tab>
         </mat-tab-group>
     </mat-card>
 </div>
