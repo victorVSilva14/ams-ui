@@ -1,0 +1,26 @@
+<div class="row center row mr-0 ml-0">
+    <div class="p-1 mt-2 ">
+        <h1 class="row mt-4 ml-3">Registro de ponto</h1>
+    </div>
+    <mat-card style="width: 100vw;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row center">
+                    <h2>{{ nomeAluno }}</h2>
+                </div>
+                <div class="row center">
+                    <p class="mb-5">{{ dataAtual | date: 'dd/MM/YYYY' }}</p>
+                </div>
+                <div class="row center">
+                    <div class="mb-4">
+                        <p class="center clock" id="time"></p>
+                    </div>
+                </div>
+                <div class="row center mb-5">
+                    <button mat-raised-button color="primary" (click)="openDialog()">Registrar ponto</button>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+    <br>
+</div>
