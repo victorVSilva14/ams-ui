@@ -1,41 +1,11 @@
-/* .mat-tab-group {
-    display: flex;
-    
-    justify-content: center;
-    justify-items: center;
-    margin-bottom: 48px;
-}
-
-.example-card {
-    
-    max-width: 300px;
-  }
-  
-.example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-} */
-/* ::ng-deep mat-tab-header {
-    align-self: start;
-} */
 .example-card {
     margin-top: 0;
-}
-
-h1 {
-    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
-    /* font-style: italic; */
 }
 
 .mat-card-center {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     height: 100%;
-    /* position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
 }
 
 .div-centralizada {
@@ -53,8 +23,4 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.container-full {
-    
 }

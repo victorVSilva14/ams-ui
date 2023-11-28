@@ -6,6 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CursoModule } from '../curso/curso.module';
 import { RegistryModule } from '../registry/registry.module';
+import { DisciplineModule } from '../discipline/discipline.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { RegistryModule } from '../registry/registry.module';
     MatTabsModule,
     MatCardModule, 
     MatButtonModule,
+    MatDialogModule,
     CursoModule,
+    DisciplineModule,
     RegistryModule
   ],
   exports: [HomeCardComponent]

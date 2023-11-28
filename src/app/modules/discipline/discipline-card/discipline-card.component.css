@@ -1,0 +1,39 @@
+.container {
+    height: 100vh; /* Define a altura do contêiner pai como 100% da altura da janela */
+    display: flex; /* Permite que o contêiner pai utilize o Flexbox */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+}  
+
+mat-card {
+    display: flex; /* Permite que os elementos filhos ocupem todo o espaço dentro do mat-card */
+    flex-direction: column; /* Empilha os elementos filhos verticalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+  }
+
+mat-card img.mat-card-image {
+    width: 350px; /* Define a largura para ocupar todo o espaço disponível */
+    height: 200px; /* Altura fixa de 200 pixels para as imagens */
+    object-fit: cover; /* Redimensiona a imagem para preencher o espaço mantendo a proporção */
+}
+
+mat-card-content {
+    width: auto; /* Define a largura para ocupar todo o espaço disponível */
+    height: 20px;
+    flex-grow: 0; /* Evita que o conteúdo cresça para ocupar todo o espaço disponível */
+    text-align: center; /* Centraliza o texto horizontalmente */
+}
+
+.add-button-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.add-button-image {
+    width: 50px; /* Defina o tamanho desejado para a imagem */
+    height: 50px;
+    cursor: pointer; /* Adiciona um cursor de apontar quando o mouse passar sobre a imagem */
+}
+  

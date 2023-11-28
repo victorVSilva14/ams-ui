@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Discipline } from '../models/discipline-resource';
 
@@ -13,25 +13,35 @@ export class DisciplineService {
   constructor(private http: HttpClient) {}
 
   getAllDisciplines(): Observable<Discipline[]> {
-    return this.http.get<Discipline[]>(this.apiUrl);
+    return this.getHttpClient().get<Discipline[]>(this.apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          console.error('Erro ao carregar disciplinas: ', error);
+          throw error; // Lança o erro novamente para ser tratado no componente
+        })
+      );
   }
 
   getDisciplineById(id: number): Observable<Discipline> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Discipline>(url);
+    return this.getHttpClient().get<Discipline>(url);
   }
 
   createDiscipline(discipline: Discipline): Observable<Discipline> {
-    return this.http.post<Discipline>(this.apiUrl, discipline);
+    return this.getHttpClient().post<Discipline>(this.apiUrl, discipline);
   }
 
   updateDiscipline(id: number, discipline: Discipline): Observable<Discipline> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.put<Discipline>(url, discipline);
+    return this.getHttpClient().put<Discipline>(url, discipline);
   }
 
   deleteDiscipline(id: number): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.delete(url);
+    return this.getHttpClient().delete(url);
+  }
+  
+  private getHttpClient(): HttpClient {
+    return this.http;
   }
 }

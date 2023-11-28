@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+  <mat-card style="width: 100vw;">
+    <form [formGroup]="disciplineForm" (ngSubmit)="onSubmit()">
+      <mat-card-title class="mb-5 text-center">{{ isEdit ? 'Editar' : 'Adicionar' }} Disciplina</mat-card-title>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <mat-form-field class="form-field">
+            <input matInput placeholder="Name" formControlName="name">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <div class="image-preview">
+            <img *ngIf="discipline.image" [src]="discipline.image" alt="Imagem da Disciplina">
+            <div class="placeholder" *ngIf="!discipline.image">Placeholder</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6">
+          <mat-form-field class="form-field">
+            <input matInput [matDatepicker]="startPicker" placeholder="Start Date Time" formControlName="startDateTime">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field class="form-field">
+            <input matInput [matDatepicker]="finalPicker" placeholder="Final Date Time" formControlName="finalDateTime">
+            <mat-datepicker-toggle matSuffix [for]="finalPicker"></mat-datepicker-toggle>
+            <mat-datepicker #finalPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6">
+          <mat-form-field class="form-field">
+            <input matInput placeholder="Day of Week" formControlName="dayOfWeek">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field class="form-field">
+            <input matInput placeholder="Classroom" formControlName="classroom">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="isUserAdmin">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="image">Imagem:</label>
+            <input type="file" id="image" name="image" (change)="onImageChange($event)" accept="image/*">
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center" *ngIf="isUserAdmin">
+        <div class="col-md-6 text-center">
+          <div class="button-container-inner">
+            <button mat-button mat-dialog-close class="mr-2" color="basic">Cancelar</button>
+            <button mat-raised-button color="primary" class="mr-2 ml-2" (click)="onSubmit()">Adicionar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>
