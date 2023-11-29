@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Discipline } from 'src/app/models/discipline-resource';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user-resource';
 import { UserService } from 'src/app/services/user.service';
 import { EnumUserRole } from '../../../enums/enum-roles';
+import { RegistryFormComponent } from '../../registry/registry-form/registry-form.component';
 
 @Component({
   selector: 'app-discipline-form',
@@ -28,7 +29,8 @@ export class DisciplineFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private userService: UserService,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -97,5 +99,11 @@ export class DisciplineFormComponent implements OnInit {
     } else {
       // Trate os erros de validação, se necessário
     }
+  }
+
+  openDialogRegistry() {
+    this.dialog.open(RegistryFormComponent, {
+      width: '500px'
+    });
   }
 }

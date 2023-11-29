@@ -21,6 +21,9 @@ import { ConfirmationDialogComponent } from './registry-form/confirmation-dialog
     MatDialogModule,
     MatSnackBarModule
   ],
+  entryComponents: [
+    RegistryFormComponent
+  ],
   exports: [RegistryFormComponent]
 })
 export class RegistryModule { }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { RegistryService } from 'src/app/services/registry.service';
+import { RegistryResource } from 'src/app/models/registry-resource';
 
 @Component({
   selector: 'app-registry-form',
@@ -10,6 +12,18 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
   styleUrls: ['./registry-form.component.css']
 })
 export class RegistryFormComponent implements OnInit {
+
+  public snackbarMessage: {
+    message: {},
+    success: boolean,
+    error: {}
+  } = {
+    message: "",
+    success: true,
+    error: ""
+  }
+
+  lastRegistry: RegistryResource = {};
 
   public nomeAluno: string = "VICTOR VIEIRA DA SILVA";
   public dataAtual: Date = new Date();
@@ -19,12 +33,14 @@ export class RegistryFormComponent implements OnInit {
   private verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(
-    private dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private registryService: RegistryService,
+    // private dialogRef: MatDialogRef<RegistryFormComponent>
   ) {}
 
   ngOnInit(): void {
     setInterval(this.realDateTime, 1000);
+    this.getLastRegistry();
   }
 
   private openSnackBar(message: string, error?: string) {
@@ -47,19 +63,65 @@ export class RegistryFormComponent implements OnInit {
   }
   
 
-  public openDialog(): void {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '300px',
-      height: '190px'
-    });
-    dialogRef.afterClosed().subscribe((snackbarMessage) => {
-      if (snackbarMessage) {
-        if (snackbarMessage.success) {
-          this.openSnackBar(snackbarMessage.message);
-        } else {
-          this.openSnackBar(snackbarMessage.error.message ? snackbarMessage.error.message : snackbarMessage.message, snackbarMessage.error.error);
-        }
-      }
+  // public openDialog(): void {
+  //   const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+  //     width: '300px',
+  //     height: '190px'
+  //   });
+  //   dialogRef.afterClosed().subscribe((snackbarMessage) => {
+  //     if (snackbarMessage) {
+  //       if (snackbarMessage.success) {
+  //         this.openSnackBar(snackbarMessage.message);
+  //       } else {
+  //         this.openSnackBar(snackbarMessage.error.message ? snackbarMessage.error.message : snackbarMessage.message, snackbarMessage.error.error);
+  //       }
+  //     }
+  //   })
+  // }
+
+  private getLastRegistry() {
+    this.registryService.getLastRegistration().subscribe((registry) => {
+      this.lastRegistry = registry;
     })
   }
+
+  public register() {
+    if (this.lastRegistry != null && !this.lastRegistry.exitDateTime) {
+      this.registerExit();
+    } else {
+      this.registerEntry();
+    }
+  }
+
+  private registerEntry() {
+    this.registryService.registerEntry().subscribe(
+      response => {
+        this.snackbarMessage.message = 'Entrada registrada com sucesso.';
+        // this.dialogRef.close(this.snackbarMessage);
+      },
+      error => {
+        this.validateErrors(error, 'Erro ao registrar entrada');
+      }
+    );
+  }
+
+  private registerExit() {
+    this.registryService.registerExit().subscribe(
+      response => {
+        this.snackbarMessage.message = 'Saída registrada com sucesso.';
+        // this.dialogRef.close(this.snackbarMessage);
+      },
+      error => {
+        this.validateErrors(error, 'Erro ao registrar saída');
+      }
+    );
+  }
+  
+  private validateErrors(error: any, message: string) {
+    this.snackbarMessage.message = message;
+    this.snackbarMessage.success = false;
+    this.snackbarMessage.error = error;
+    // this.dialogRef.close(this.snackbarMessage);
+  }
+
 }
