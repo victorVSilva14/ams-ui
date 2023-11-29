@@ -14,6 +14,7 @@ import { AboutComponent } from './about/about.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { RegistryService } from './services/registry.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { RegistryService } from './services/registry.service';
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatProgressSpinnerModule,
     CoreModule

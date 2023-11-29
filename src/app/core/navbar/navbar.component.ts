@@ -13,6 +13,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {NgIf, NgFor} from '@angular/common';
 import { HomeModule } from 'src/app/modules/home/home.module';
 import { CursoModule } from 'src/app/modules/curso/curso.module';
+import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -35,11 +37,15 @@ import { CursoModule } from 'src/app/modules/curso/curso.module';
 })
 export class NavbarComponent {
   mobileQuery: MediaQueryList;
-  showFrequency: boolean = false;
 
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    changeDetectorRef: ChangeDetectorRef, 
+    media: MediaMatcher,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -49,7 +55,8 @@ export class NavbarComponent {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  toggleFrequency() {
-    this.showFrequency = !this.showFrequency;
+  logout() {
+    this.userService.clearCurrentUser();
+    this.router.navigate(['/login']);
   }
 }

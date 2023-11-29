@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <mat-card style="width: 100vw;">
     <form [formGroup]="disciplineForm" (ngSubmit)="onSubmit()">
-      <mat-card-title class="mb-5 text-center">{{ isEdit ? 'Editar' : 'Adicionar' }} Disciplina</mat-card-title>
+      <mat-card-title class="mb-5 text-center">{{ !isUserAdmin ? '' : isEdit ? 'Editar' : 'Adicionar' }} Disciplina</mat-card-title>
 
       <div class="row mb-3">
         <div class="col-md-6">
@@ -61,11 +61,15 @@
         </div>
       </div>
 
-      <div class="row justify-content-center" *ngIf="isUserAdmin">
+      <div class="row justify-content-center">
         <div class="col-md-6 text-center">
           <div class="button-container-inner">
-            <button mat-button mat-dialog-close class="mr-2" color="basic">Cancelar</button>
-            <button mat-raised-button color="primary" class="mr-2 ml-2" (click)="onSubmit()">Adicionar</button>
+            <button *ngIf="isUserAdmin" mat-button mat-dialog-close class="mr-2" color="basic">Cancelar</button>
+            <button *ngIf="isUserAdmin" mat-raised-button color="primary" class="mr-2 ml-2" (click)="onSubmit()">Adicionar</button>
+            <button *ngIf="!isUserAdmin" mat-raised-button color="primary" class="mr-4 ml-4">
+              <mat-icon>alarm</mat-icon>
+              <span>Registrar ponto</span>
+            </button>
           </div>
         </div>
       </div>
