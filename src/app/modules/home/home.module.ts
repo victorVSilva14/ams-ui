@@ -8,6 +8,7 @@ import { CursoModule } from '../curso/curso.module';
 import { RegistryModule } from '../registry/registry.module';
 import { DisciplineModule } from '../discipline/discipline.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LoginModule } from '../login/login.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
     CursoModule,
     DisciplineModule,
+    LoginModule,
     RegistryModule
   ],
   exports: [HomeCardComponent]

@@ -1,0 +1,41 @@
+<form [formGroup]="loginForm" class="login-form" (ngSubmit)="login()">
+    <mat-card class="login-card">
+      <mat-card-content class="login-content">
+        <div class="title-container">
+          <h2 class="login-title">Login</h2>
+        </div>
+  
+        <mat-form-field class="full-width">
+          <input matInput placeholder="username" type="text" formControlName="username">
+          <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+            O nome é obrigatório
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('username')?.hasError('username')">
+            Nome inválido
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Password" type="password" formControlName="password">
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Senha é obrigatória
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+            Senha deve ter no mínimo 4 caracteres
+          </mat-error>
+        </mat-form-field>
+        <mat-error *ngIf="loginFailed" class="full-width">
+            Usuário ou senha incorretos. Por favor, tente novamente.
+        </mat-error>
+
+  
+        <div class="register-link">
+          <p>Ainda não possui uma conta? <a href="registration">Clique aqui!</a></p>
+        </div>
+  
+        <div class="button-container">
+          <button mat-raised-button color="primary" class="login-button" (click)="login()">Login</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>

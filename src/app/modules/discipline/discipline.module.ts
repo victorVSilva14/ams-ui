@@ -11,6 +11,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DisciplineService } from 'src/app/services/discipline.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DisciplineService } from 'src/app/services/discipline.service';
     MatDatepickerModule, 
     MatNativeDateModule,
     ReactiveFormsModule,
+    MatIconModule,
     MatButtonModule,
     MatDialogModule,
     MatGridListModule
