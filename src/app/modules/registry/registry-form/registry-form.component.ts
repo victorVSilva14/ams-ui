@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { RegistryService } from 'src/app/services/registry.service';
 import { RegistryResource } from 'src/app/models/registry-resource';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-registry-form',
@@ -25,7 +24,7 @@ export class RegistryFormComponent implements OnInit {
 
   lastRegistry: RegistryResource = {};
 
-  public nomeAluno: string = "VICTOR VIEIRA DA SILVA";
+  public nomeAluno: string = '';
   public dataAtual: Date = new Date();
   public timeDisplay: any;
   
@@ -35,12 +34,14 @@ export class RegistryFormComponent implements OnInit {
   constructor(
     private _snackBar: MatSnackBar,
     private registryService: RegistryService,
+    private userService: UserService
     // private dialogRef: MatDialogRef<RegistryFormComponent>
   ) {}
 
   ngOnInit(): void {
     setInterval(this.realDateTime, 1000);
     this.getLastRegistry();
+    this.nomeAluno = this.userService.currentUserValue.username as string;
   }
 
   private openSnackBar(message: string, error?: string) {

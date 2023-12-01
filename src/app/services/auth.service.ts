@@ -14,7 +14,10 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   login(username: string, password: string) {
-    return this.getHttpClient().post<any>(`${this.apiUrl}/login`, { username, password });
+    const body = { username, password };
+    const headers = { 'Content-Type': 'application/json' };
+  
+    return this.getHttpClient().post<any>(`${this.apiUrl}/login`, JSON.stringify(body), { headers });
   }
 
   findByUsername(username: string): Observable<User> {

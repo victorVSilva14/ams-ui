@@ -27,8 +27,15 @@ export class DisciplineService {
     return this.getHttpClient().get<Discipline>(url);
   }
 
-  createDiscipline(discipline: Discipline): Observable<Discipline> {
-    return this.getHttpClient().post<Discipline>(this.apiUrl, discipline);
+  createDiscipline(discipline: Discipline, imageBase64: string | undefined) {
+    const url = `${this.apiUrl}/withImage`;
+    const formData = new FormData();
+    formData.append('discipline', JSON.stringify(discipline));
+    if (imageBase64) {
+      formData.append('imageBase64', imageBase64);
+    }
+  
+    return this.http.post<any>(url, formData);
   }
 
   updateDiscipline(id: number, discipline: Discipline): Observable<Discipline> {
