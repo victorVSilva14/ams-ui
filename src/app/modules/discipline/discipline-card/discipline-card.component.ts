@@ -42,13 +42,13 @@ export class DisciplineCardComponent implements OnInit {
   }
 
   openDialogDisciplineForm(itemId: any) {
-    const selectedDiscipline: Discipline | undefined = this.disciplines.find(discipline => discipline.id === itemId);
-    if (selectedDiscipline) {
-      this.dialog.open(DisciplineFormComponent, {
-        width: '500px',
-        data: selectedDiscipline,
-      });
-    }
+    this.disciplineService.getDisciplineById(itemId).subscribe((selectedDiscipline) => {
+      if (selectedDiscipline) {
+        this.dialog.open(DisciplineFormComponent, {
+          width: '500px',
+          data: selectedDiscipline,
+        });
+    }});
   }
 
   private checkScreenSize() {

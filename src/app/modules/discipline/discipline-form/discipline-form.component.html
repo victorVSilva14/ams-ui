@@ -66,7 +66,7 @@
           <div class="button-container-inner">
             <button *ngIf="isUserAdmin" mat-button mat-dialog-close class="mr-2" color="basic">Cancelar</button>
             <button *ngIf="isUserAdmin" mat-raised-button color="primary" class="mr-2 ml-2" (click)="onSubmit()">Adicionar</button>
-            <button *ngIf="!isUserAdmin" mat-raised-button color="primary" class="mr-4 ml-4">
+            <button *ngIf="!isUserAdmin" mat-raised-button color="primary" class="mr-4 ml-4" (click)="openDialogRegistry()">
               <mat-icon>alarm</mat-icon>
               <span>Registrar ponto</span>
             </button>

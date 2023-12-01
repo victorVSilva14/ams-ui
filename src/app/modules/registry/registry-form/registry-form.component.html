@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row center">
-                    <h2>{{ nomeAluno }}</h2>
+                    <h2>{{ nomeAluno | uppercase }}</h2>
                 </div>
                 <div class="row center">
                     <p class="mb-5">{{ dataAtual | date: 'dd/MM/YYYY' }}</p>
@@ -16,8 +16,16 @@
                         <p class="center clock" id="time"></p>
                     </div>
                 </div>
-                <div class="row center mb-5">
-                    <button mat-raised-button color="primary" (click)="openDialog()">Registrar ponto</button>
+                <div class="row center mb-2">
+                    <div mat-dialog-content>
+                        Deseja registrar seu ponto?
+                    </div>
+                </div>
+                <div class="row center mb-3">
+                    <div mat-dialog-actions>
+                        <button mat-button mat-dialog-close>Não</button>
+                        <button mat-raised-button color="primary" (click)="register()" mat-dialog-close cdkFocusInitial>Sim</button>
+                    </div>
                 </div>
             </div>
         </div>

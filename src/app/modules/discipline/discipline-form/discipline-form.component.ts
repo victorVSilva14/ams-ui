@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Discipline } from 'src/app/models/discipline-resource';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user-resource';
 import { UserService } from 'src/app/services/user.service';
 import { EnumUserRole } from '../../../enums/enum-roles';
+import { RegistryFormComponent } from '../../registry/registry-form/registry-form.component';
+import { DisciplineService } from 'src/app/services/discipline.service';
 
 @Component({
   selector: 'app-discipline-form',
@@ -24,11 +26,16 @@ export class DisciplineFormComponent implements OnInit {
 
   public user: User = new User();
 
+  imageFile: File | undefined;
+
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: Discipline,
     private userService: UserService,
+    private disciplineService: DisciplineService,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -39,14 +46,15 @@ export class DisciplineFormComponent implements OnInit {
 
   private buildDisciplineForm() {
     this.disciplineForm = this.formBuilder.group({
-      id: [{value: this.isEdit ? this.data.id : '', disabled: !this.isUserAdmin}],
+      id: [{value: this.isEdit ? this.data.id : null, disabled: !this.isUserAdmin}],
       name: [{ value: this.isEdit ? this.data.name : '', disabled: !this.isUserAdmin }, Validators.required],
       startDateTime: [{ value: this.isEdit ? this.data.startDateTime : '', disabled: !this.isUserAdmin }, Validators.required],
       finalDateTime: [{ value: this.isEdit ? this.data.finalDateTime : '', disabled: !this.isUserAdmin }, Validators.required],
       dayOfWeek: [{ value: this.isEdit ? this.data.dayOfWeek : '', disabled: !this.isUserAdmin }, Validators.required],
       classroom: [{ value: this.isEdit ? this.data.classroom : '', disabled: !this.isUserAdmin }],
       image: [this.isEdit ? this.data.image : ''],
-      teacher: [{ value: this.isEdit ? this.data.teacher : '', disabled: !this.isUserAdmin }]
+      users:  [this.isEdit && this.data.teacher ? this.data.users : 1],
+      teacher: [{ value: this.isEdit && this.data.teacher ? this.data.teacher : 1, disabled: !this.isUserAdmin }]
     });
   }
 
@@ -81,21 +89,54 @@ export class DisciplineFormComponent implements OnInit {
   onImageChange(event: any) {
     const file = event.target.files[0];
     if (file) {
-      // Processar a imagem (por exemplo, converter para base64)
+      this.imageFile = event.target.files[0];
+      console.log('Arquivo selecionado:', this.imageFile);
       const reader = new FileReader();
       reader.onloadend = () => {
         this.discipline.image = reader.result as string;
-        this.disciplineForm.get('image')?.setValue(this.discipline.image);
+        console.log('Arquivo selecionado 2:', this.discipline.image);
       };
       reader.readAsDataURL(file);
     }
   }
 
   onSubmit() {
-    if (this.disciplineForm.valid) {
-      console.log(this.disciplineForm.value);
-    } else {
-      // Trate os erros de validação, se necessário
+    const disciplineData = this.disciplineForm.value;
+    const formData = new FormData();
+    formData.append('discipline', JSON.stringify(disciplineData));
+  
+    // Supondo que this.imageFile é um objeto File contendo a imagem
+    if (this.imageFile) {
+      this.convertToBase64(this.imageFile).then((imageBase64: string) => {
+        formData.append('imageBase64', imageBase64);
+  
+        this.disciplineService.createDiscipline(disciplineData, imageBase64).subscribe(
+          (response) => {
+            console.log('Discipline created:', response);
+          },
+          (error) => {
+            console.error('Error creating discipline:', error);
+          }
+        );
+      });
     }
+  }
+  
+  convertToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64String = reader.result?.toString().split(',')[1]; // Remove o cabeçalho 'data:image/png;base64,' da string base64
+        resolve(base64String || '');
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  }
+  
+  openDialogRegistry() {
+    this.dialog.open(RegistryFormComponent, {
+      width: '500px'
+    });
   }
 }
